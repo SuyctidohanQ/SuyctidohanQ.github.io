@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" type="text/css" href="SYHOI.css">
+    <script src="SYHOI.js"></script>
+    <title>SYHOI Online Judge</title>
+</head>
+<body class="bg-gray-50">
+    <!-- 标题 -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center text-white">
+                <span class="inline-block transform hover:scale-105 transition-transform">
+                    <i class="fas fa-code mr-2"></i>SYHOI Online Judge
+                </span>
+            </h1>
+        </div>
+    </div>
+    <br>
+    
+    <!-- 导航栏 -->
+    <div class="nav-fixed bg-gray-800 text-white shadow-xl">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <p class="font-medium">访客用户</p>
+                <p class="text-xs text-gray-400">未登录</p>
+            </div>
+        </div>
+        <ul class="space-y-1 p-4">
+            <li>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-trophy w-6 text-center"></i>
+                    <span class="ml-3">比赛</span>
+                </a>
+            </li>
+            <li>
+                <a href="problems.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-file-code w-6 text-center"></i>
+                    <span class="ml-3">题库</span>
+                </a>
+            </li>
+            <li>
+                <a href="problem_lists.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-list w-6 text-center"></i>
+                    <span class="ml-3">题单</span>
+                </a>
+            </li>
+            <li>
+                <a href="submissions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-history w-6 text-center"></i>
+                    <span class="ml-3">我的提交记录</span>
+                </a>
+            </li>
+            <li>
+                <a href="courses.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-graduation-cap w-6 text-center"></i>
+                    <span class="ml-3">课程</span>
+                </a>
+            </li>
+            <li>
+                <a href="daily.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-newspaper w-6 text-center"></i>
+                    <span class="ml-3">日报</span>
+                </a>
+            </li>
+            <li>
+                <a href="discussions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-comments w-6 text-center"></i>
+                    <span class="ml-3">讨论区</span>
+                </a>
+            </li>
+            <li>
+                <a href="rankings.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-chart-simple w-6 text-center"></i>
+                    <span class="ml-3">排名</span>
+                </a>
+            </li>
+        </ul>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
+                <i class="fas fa-sign-in-alt mr-2"></i>登录/注册
+            </button>
+            <button id="logout-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 mt-2 hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>退出登录
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主体内容 -->
+    <div class="ml-[20%] p-8">
+        <!-- 比赛部分 -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">比赛</h2>
+                <button id="create-contest-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>创建比赛
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="flex border-b border-gray-200">
+                    <div class="tab active" data-tab="ongoing-contests">进行中的比赛</div>
+                    <div class="tab" data-tab="upcoming-contests">即将开始的比赛</div>
+                    <div class="tab" data-tab="finished-contests">已结束的比赛</div>
+                </div>
+                
+                <div class="tab-content active" id="ongoing-contests">
+                    <div class="p-4">
+                        <div id="ongoing-contests-list" class="grid grid-cols-1 gap-4">
+                            <!-- 动态加载 -->
+                        </div>
+                        <div class="text-center py-4 text-gray-500" id="ongoing-contests-empty">
+                            暂无进行中的比赛
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="upcoming-contests">
+                    <div class="p-4">
+                        <div id="upcoming-contests-list" class="grid grid-cols-1 gap-4">
+                            <!-- 动态加载 -->
+                        </div>
+                        <div class="text-center py-4 text-gray-500" id="upcoming-contests-empty">
+                            暂无即将开始的比赛
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="finished-contests">
+                    <div class="p-4">
+                        <div id="finished-contests-list" class="grid grid-cols-1 gap-4">
+                            <!-- 动态加载 -->
+                        </div>
+                        <div class="text-center py-4 text-gray-500" id="finished-contests-empty">
+                            暂无已结束的比赛
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 讨论区部分 -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">最新讨论</h2>
+                <button id="create-discussion-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>发布讨论
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div id="discussions-list" class="divide-y divide-gray-200">
+                    <!-- 动态加载 -->
+                </div>
+                <div class="text-center py-4 text-gray-500" id="discussions-empty">
+                    暂无讨论内容
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <!-- 创建比赛模态框 -->
+    <div id="create-contest-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">创建比赛</h2>
+            <form id="contest-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="contest-name" class="block text-sm font-medium text-gray-700 mb-1">比赛名称</label>
+                        <input type="text" id="contest-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="contest-difficulty" class="block text-sm font-medium text-gray-700 mb-1">难度 (1-10)</label>
+                        <input type="number" id="contest-difficulty" min="1" max="10" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="contest-start-time" class="block text-sm font-medium text-gray-700 mb-1">开始时间</label>
+                        <input type="datetime-local" id="contest-start-time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="contest-end-time" class="block text-sm font-medium text-gray-700 mb-1">结束时间</label>
+                        <input type="datetime-local" id="contest-end-time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="contest-duration" class="block text-sm font-medium text-gray-700 mb-1">时长</label>
+                    <input type="text" id="contest-duration" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="contest-description" class="block text-sm font-medium text-gray-700 mb-1">比赛描述</label>
+                    <textarea id="contest-description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="contest-qa" class="block text-sm font-medium text-gray-700 mb-1">赛事答疑</label>
+                        <input type="text" id="contest-qa" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="contest-summary" class="block text-sm font-medium text-gray-700 mb-1">赛后总结</label>
+                        <input type="text" id="contest-summary" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="cancel-contest-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="save-contest-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 创建讨论模态框 -->
+    <div id="create-discussion-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">发布讨论</h2>
+            <form id="discussion-form">
+                <div class="mb-4">
+                    <label for="discussion-title" class="block text-sm font-medium text-gray-700 mb-1">标题</label>
+                    <input type="text" id="discussion-title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="discussion-content" class="block text-sm font-medium text-gray-700 mb-1">内容</label>
+                    <textarea id="discussion-content" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="cancel-discussion-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="save-discussion-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
