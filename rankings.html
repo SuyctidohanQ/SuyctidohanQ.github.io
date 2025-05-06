@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" type="text/css" href="SYHOI.css">
+    <script src="SYHOI.js"></script>
+    <title>排名 - SYHOI Online Judge</title>
+</head>
+<body class="bg-gray-50">
+    <!-- 标题 -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center text-white">
+                <span class="inline-block transform hover:scale-105 transition-transform">
+                    <i class="fas fa-code mr-2"></i>SYHOI Online Judge
+                </span>
+            </h1>
+        </div>
+    </div>
+    <br>
+    
+    <!-- 导航栏 -->
+    <div class="nav-fixed bg-gray-800 text-white shadow-xl">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <p class="font-medium">访客用户</p>
+                <p class="text-xs text-gray-400">未登录</p>
+            </div>
+        </div>
+        <ul class="space-y-1 p-4">
+            <li>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-trophy w-6 text-center"></i>
+                    <span class="ml-3">比赛</span>
+                </a>
+            </li>
+            <li>
+                <a href="problems.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-file-code w-6 text-center"></i>
+                    <span class="ml-3">题库</span>
+                </a>
+            </li>
+            <li>
+                <a href="problem_lists.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-list w-6 text-center"></i>
+                    <span class="ml-3">题单</span>
+                </a>
+            </li>
+            <li>
+                <a href="submissions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-history w-6 text-center"></i>
+                    <span class="ml-3">我的提交记录</span>
+                </a>
+            </li>
+            <li>
+                <a href="courses.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-graduation-cap w-6 text-center"></i>
+                    <span class="ml-3">课程</span>
+                </a>
+            </li>
+            <li>
+                <a href="daily.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-newspaper w-6 text-center"></i>
+                    <span class="ml-3">日报</span>
+                </a>
+            </li>
+            <li>
+                <a href="discussions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-comments w-6 text-center"></i>
+                    <span class="ml-3">讨论区</span>
+                </a>
+            </li>
+            <li>
+                <a href="rankings.html" class="flex items-center p-3 rounded-lg bg-blue-700 hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-chart-simple w-6 text-center"></i>
+                    <span class="ml-3">排名</span>
+                </a>
+            </li>
+        </ul>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
+                <i class="fas fa-sign-in-alt mr-2"></i>登录/注册
+            </button>
+            <button id="logout-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 mt-2 hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>退出登录
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主体内容 -->
+    <div class="ml-[20%] p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">用户排名</h2>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" id="ranking-search" class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="搜索用户...">
+                    <div class="absolute left-3 top-2.5 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <select id="ranking-filter" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="all">所有用户</option>
+                    <option value="student">学生</option>
+                    <option value="teacher">教师</option>
+                    <option value="admin">管理员</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">排名</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">通过数</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">提交数</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">通过率</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">得分</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">角色</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-table-body" class="bg-white divide-y divide-gray-200">
+                        <!-- 排名数据将通过JS动态加载 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center py-4 text-gray-500" id="ranking-empty">
+                暂无排名数据
+            </div>
+        </div>
+        
+        <!-- 分页 -->
+        <div class="flex justify-between items-center mt-6">
+            <div class="text-sm text-gray-500">
+                显示 <span id="ranking-start">1</span> 到 <span id="ranking-end">10</span> 条，共 <span id="ranking-total">0</span> 条
+            </div>
+            <nav class="inline-flex rounded-md shadow">
+                <button id="ranking-prev" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    上一页
+                </button>
+                <button class="px-3 py-2 border-t border-b border-gray-300 bg-white text-sm font-medium text-blue-600 hover:bg-blue-50">
+                    1
+                </button>
+                <button class="px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                    2
+                </button>
+                <button class="px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+                    3
+                </button>
+                <button id="ranking-next" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    下一页
+                </button>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>

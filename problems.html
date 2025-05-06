@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" type="text/css" href="SYHOI.css">
+	<script src="SYHOI.js"></script>
+    <title>题库 - SYHOI Online Judge</title>
+</head>
+<body class="bg-gray-50">
+    <!-- 标题 -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center text-white">
+                <span class="inline-block transform hover:scale-105 transition-transform">
+                    <i class="fas fa-code mr-2"></i>SYHOI Online Judge
+                </span>
+            </h1>
+        </div>
+    </div>
+    <br>
+    
+    <!-- 导航栏 -->
+    <div class="nav-fixed bg-gray-800 text-white shadow-xl">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <p class="font-medium">访客用户</p>
+                <p class="text-xs text-gray-400">未登录</p>
+            </div>
+        </div>
+        <ul class="space-y-1 p-4">
+            <li>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-trophy w-6 text-center"></i>
+                    <span class="ml-3">比赛</span>
+                </a>
+            </li>
+            <li>
+                <a href="problems.html" class="flex items-center p-3 rounded-lg bg-blue-700 hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-file-code w-6 text-center"></i>
+                    <span class="ml-3">题库</span>
+                </a>
+            </li>
+            <li>
+                <a href="problem_lists.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-list w-6 text-center"></i>
+                    <span class="ml-3">题单</span>
+                </a>
+            </li>
+            <li>
+                <a href="submissions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-history w-6 text-center"></i>
+                    <span class="ml-3">我的提交记录</span>
+                </a>
+            </li>
+            <li>
+                <a href="courses.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-graduation-cap w-6 text-center"></i>
+                    <span class="ml-3">课程</span>
+                </a>
+            </li>
+            <li>
+                <a href="daily.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-newspaper w-6 text-center"></i>
+                    <span class="ml-3">日报</span>
+                </a>
+            </li>
+            <li>
+                <a href="discussions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-comments w-6 text-center"></i>
+                    <span class="ml-3">讨论区</span>
+                </a>
+            </li>
+            <li>
+                <a href="rankings.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-chart-simple w-6 text-center"></i>
+                    <span class="ml-3">排名</span>
+                </a>
+            </li>
+        </ul>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
+                <i class="fas fa-sign-in-alt mr-2"></i>登录/注册
+            </button>
+            <button id="logout-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 mt-2 hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>退出登录
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主体内容 -->
+    <div class="ml-[20%] p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">题库</h2>
+            <button id="create-problem-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>创建题目
+            </button>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">题目ID</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">题目名称</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">难度</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">来源</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">通过率</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="problems-table-body" class="bg-white divide-y divide-gray-200">
+                        <!-- 动态加载 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 题目详情页（隐藏） -->
+    <div id="problem-detail-content" class="hidden ml-[20%] p-8">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800 inline-block" id="problem-detail-title">题目详情</h2>
+                <span id="problem-type-badge" class="problem-type-badge">上机题</span>
+            </div>
+            <div>
+                <button id="submit-solution-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                    <i class="fas fa-paper-plane mr-2"></i>提交代码
+                </button>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="p-6">
+                <div class="flex items-center space-x-4 mb-4">
+                    <span class="text-sm text-gray-500">时间限制: <span id="time-limit" class="font-medium">1s</span></span>
+                    <span class="text-sm text-gray-500">内存限制: <span id="memory-limit" class="font-medium">256MB</span></span>
+                    <span class="text-sm text-gray-500">难度: 
+                        <span id="problem-difficulty" class="font-medium">
+                            <span class="difficulty-badge bg-green-100 text-green-800">简单</span>
+                        </span>
+                    </span>
+                </div>
+                
+                <div class="prose max-w-none" id="problem-description">
+                    <!-- 动态加载 -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">输入样例</h3>
+                </div>
+                <div class="p-4">
+                    <pre class="bg-gray-50 p-3 rounded-md overflow-x-auto" id="input-sample"></pre>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">输出样例</h3>
+                </div>
+                <div class="p-4">
+                    <pre class="bg-gray-50 p-3 rounded-md overflow-x-auto" id="output-sample"></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">提示</h3>
+            </div>
+            <div class="p-4">
+                <div class="prose max-w-none" id="problem-hint"></div>
+            </div>
+        </div>
+        
+        <!-- 讨论区 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-900">讨论区</h3>
+                <button id="create-problem-discussion-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-lg text-sm flex items-center transition-colors duration-200">
+                    <i class="fas fa-plus mr-1"></i>发布讨论
+                </button>
+            </div>
+            <div id="problem-discussions-list" class="divide-y divide-gray-200">
+                <!-- 动态加载 -->
+            </div>
+            <div class="text-center py-4 text-gray-500" id="problem-discussions-empty">
+                暂无讨论内容
+            </div>
+        </div>
+    </div>
+    
+    <!-- 提交代码页面（隐藏） -->
+    <div id="submit-content" class="hidden ml-[20%] p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">提交代码</h2>
+            <button id="back-to-problem-btn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                <i class="fas fa-arrow-left mr-2"></i>返回题目
+            </button>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-medium text-gray-900">代码编辑器</h3>
+                    <div class="flex items-center space-x-4">
+                        <select id="language-select" class="border border-gray-300 rounded-md px-3 py-1 text-sm">
+                            <option value="cpp">C++</option>
+                            <option value="c">C</option>
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="p-0">
+                <textarea id="code-editor" class="w-full h-96 p-4 font-mono text-sm border-0 focus:ring-0 code-editor" spellcheck="false"></textarea>
+            </div>
+        </div>
+        
+        <div class="flex justify-end">
+            <button id="submit-code-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg flex items-center transition-colors duration-200">
+                <i class="fas fa-paper-plane mr-2"></i>提交
+            </button>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <!-- 创建题目模态框 -->
+    <div id="create-problem-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">创建题目</h2>
+            <form id="problem-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="problem-name" class="block text-sm font-medium text-gray-700 mb-1">题目名称</label>
+                        <input type="text" id="problem-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="problem-difficulty" class="block text-sm font-medium text-gray-700 mb-1">难度 (1-10)</label>
+                        <input type="number" id="problem-difficulty" min="1" max="10" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="problem-type" class="block text-sm font-medium text-gray-700 mb-1">题目类型</label>
+                        <select id="problem-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="programming">上机题</option>
+                            <option value="written">笔试题</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="problem-source" class="block text-sm font-medium text-gray-700 mb-1">来源</label>
+                        <input type="text" id="problem-source" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-description" class="block text-sm font-medium text-gray-700 mb-1">题目描述 (支持 LaTeX)</label>
+                    <textarea id="problem-description" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-input" class="block text-sm font-medium text-gray-700 mb-1">输入描述</label>
+                    <textarea id="problem-input" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-output" class="block text-sm font-medium text-gray-700 mb-1">输出描述</label>
+                    <textarea id="problem-output" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="problem-time-limit" class="block text-sm font-medium text-gray-700 mb-1">时间限制 (ms)</label>
+                        <input type="number" id="problem-time-limit" min="100" step="100" value="1000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="problem-memory-limit" class="block text-sm font-medium text-gray-700 mb-1">内存限制 (MB)</label>
+                        <input type="number" id="problem-memory-limit" min="16" step="16" value="256" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-sample-input" class="block text-sm font-medium text-gray-700 mb-1">样例输入</label>
+                    <textarea id="problem-sample-input" rows="3" class="w-full px-3 py-2 font-mono text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-sample-output" class="block text-sm font-medium text-gray-700 mb-1">样例输出</label>
+                    <textarea id="problem-sample-output" rows="3" class="w-full px-3 py-2 font-mono text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-hint" class="block text-sm font-medium text-gray-700 mb-1">提示</label>
+                    <textarea id="problem-hint" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">测试数据</label>
+                    <div id="test-cases-container">
+                        <div class="test-case mb-4">
+                            <div class="test-case-header flex justify-between items-center">
+                                <span>测试点 #1</span>
+                                <button type="button" class="text-red-500 hover:text-red-700 text-sm" onclick="removeTestCase(this)">删除</button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500 mb-1">输入</label>
+                                    <textarea class="w-full px-2 py-1 text-xs font-mono border border-gray-300 rounded-md" rows="3"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500 mb-1">输出</label>
+                                    <textarea class="w-full px-2 py-1 text-xs font-mono border border-gray-300 rounded-md" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-test-case-btn" class="mt-2 text-sm text-blue-600 hover:text-blue-800">+ 添加测试点</button>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="cancel-problem-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="save-problem-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 编辑题目模态框 -->
+    <div id="edit-problem-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">编辑题目</h2>
+            <form id="edit-problem-form">
+                <input type="hidden" id="edit-problem-id">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="edit-problem-name" class="block text-sm font-medium text-gray-700 mb-1">题目名称</label>
+                        <input type="text" id="edit-problem-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="edit-problem-difficulty" class="block text-sm font-medium text-gray-700 mb-1">难度 (1-10)</label>
+                        <input type="number" id="edit-problem-difficulty" min="1" max="10" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="edit-problem-type" class="block text-sm font-medium text-gray-700 mb-1">题目类型</label>
+                        <select id="edit-problem-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <option value="programming">上机题</option>
+                            <option value="written">笔试题</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="edit-problem-source" class="block text-sm font-medium text-gray-700 mb-1">来源</label>
+                        <input type="text" id="edit-problem-source" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-description" class="block text-sm font-medium text-gray-700 mb-1">题目描述 (支持 LaTeX)</label>
+                    <textarea id="edit-problem-description" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-input" class="block text-sm font-medium text-gray-700 mb-1">输入描述</label>
+                    <textarea id="edit-problem-input" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-output" class="block text-sm font-medium text-gray-700 mb-1">输出描述</label>
+                    <textarea id="edit-problem-output" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="edit-problem-time-limit" class="block text-sm font-medium text-gray-700 mb-1">时间限制 (ms)</label>
+                        <input type="number" id="edit-problem-time-limit" min="100" step="100" value="1000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="edit-problem-memory-limit" class="block text-sm font-medium text-gray-700 mb-1">内存限制 (MB)</label>
+                        <input type="number" id="edit-problem-memory-limit" min="16" step="16" value="256" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-sample-input" class="block text-sm font-medium text-gray-700 mb-1">样例输入</label>
+                    <textarea id="edit-problem-sample-input" rows="3" class="w-full px-3 py-2 font-mono text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-sample-output" class="block text-sm font-medium text-gray-700 mb-1">样例输出</label>
+                    <textarea id="edit-problem-sample-output" rows="3" class="w-full px-3 py-2 font-mono text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="edit-problem-hint" class="block text-sm font-medium text-gray-700 mb-1">提示</label>
+                    <textarea id="edit-problem-hint" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">测试数据</label>
+                    <div id="edit-test-cases-container">
+                        <!-- 动态加载 -->
+                    </div>
+                    <button type="button" id="edit-add-test-case-btn" class="mt-2 text-sm text-blue-600 hover:text-blue-800">+ 添加测试点</button>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="edit-cancel-problem-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="edit-save-problem-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 提交结果模态框 -->
+    <div id="submit-result-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">提交结果</h2>
+            <div id="submit-result-content" class="mb-4">
+                <!-- 动态加载 -->
+            </div>
+            <div class="flex justify-end">
+                <button id="close-submit-result-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建题目讨论模态框 -->
+    <div id="create-problem-discussion-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">发布讨论</h2>
+            <form id="problem-discussion-form">
+                <input type="hidden" id="problem-discussion-problem-id">
+                <div class="mb-4">
+                    <label for="problem-discussion-title" class="block text-sm font-medium text-gray-700 mb-1">标题</label>
+                    <input type="text" id="problem-discussion-title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="problem-discussion-content" class="block text-sm font-medium text-gray-700 mb-1">内容</label>
+                    <textarea id="problem-discussion-content" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="cancel-problem-discussion-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="save-problem-discussion-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" type="text/css" href="SYHOI.css">
+	<script src="SYHOI.js"></script>
+    <title>日报 - SYHOI Online Judge</title>
+</head>
+<body class="bg-gray-50">
+    <!-- 标题 -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center text-white">
+                <span class="inline-block transform hover:scale-105 transition-transform">
+                    <i class="fas fa-code mr-2"></i>SYHOI Online Judge
+                </span>
+            </h1>
+        </div>
+    </div>
+    <br>
+    
+    <!-- 导航栏 -->
+    <div class="nav-fixed bg-gray-800 text-white shadow-xl">
+        <div class="p-4 flex items-center space-x-3 border-b border-gray-700">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+            <div>
+                <p class="font-medium">访客用户</p>
+                <p class="text-xs text-gray-400">未登录</p>
+            </div>
+        </div>
+        <ul class="space-y-1 p-4">
+            <li>
+                <a href="index.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-trophy w-6 text-center"></i>
+                    <span class="ml-3">比赛</span>
+                </a>
+            </li>
+            <li>
+                <a href="problems.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-file-code w-6 text-center"></i>
+                    <span class="ml-3">题库</span>
+                </a>
+            </li>
+            <li>
+                <a href="problem_lists.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-list w-6 text-center"></i>
+                    <span class="ml-3">题单</span>
+                </a>
+            </li>
+            <li>
+                <a href="submissions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-history w-6 text-center"></i>
+                    <span class="ml-3">我的提交记录</span>
+                </a>
+            </li>
+            <li>
+                <a href="courses.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-graduation-cap w-6 text-center"></i>
+                    <span class="ml-3">课程</span>
+                </a>
+            </li>
+            <li>
+                <a href="daily.html" class="flex items-center p-3 rounded-lg bg-blue-700 hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-newspaper w-6 text-center"></i>
+                    <span class="ml-3">日报</span>
+                </a>
+            </li>
+            <li>
+                <a href="discussions.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-comments w-6 text-center"></i>
+                    <span class="ml-3">讨论区</span>
+                </a>
+            </li>
+            <li>
+                <a href="rankings.html" class="flex items-center p-3 rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                    <i class="fas fa-chart-simple w-6 text-center"></i>
+                    <span class="ml-3">排名</span>
+                </a>
+            </li>
+        </ul>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
+                <i class="fas fa-sign-in-alt mr-2"></i>登录/注册
+            </button>
+            <button id="logout-btn" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 mt-2 hidden">
+                <i class="fas fa-sign-out-alt mr-2"></i>退出登录
+            </button>
+        </div>
+    </div>
+    
+    <!-- 主体内容 -->
+    <div class="ml-[20%] p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800">每日一题</h2>
+            <div class="flex space-x-2">
+                <button id="prev-day-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded-lg flex items-center transition-colors duration-200">
+                    <i class="fas fa-chevron-left mr-1"></i>前一天
+                </button>
+                <span id="current-date" class="px-4 py-1 text-gray-700">2025年5月5日</span>
+                <button id="next-day-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-1 px-3 rounded-lg flex items-center transition-colors duration-200">
+                    后一天<i class="fas fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800" id="daily-problem-title">两数之和</h3>
+                        <div class="flex items-center space-x-4 mt-2">
+                            <span class="text-sm text-gray-500">难度: <span class="font-medium"><span class="difficulty-badge bg-green-100 text-green-800">简单</span></span></span>
+                            <span class="text-sm text-gray-500">通过率: <span class="font-medium">72.5%</span></span>
+                            <span class="text-sm text-gray-500">标签: <span class="font-medium">数组, 哈希表</span></span>
+                        </div>
+                    </div>
+                    <button id="submit-daily-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                        <i class="fas fa-paper-plane mr-2"></i>提交代码
+                    </button>
+                </div>
+                
+                <div class="prose max-w-none" id="daily-problem-description">
+                    <p>给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，请你在该数组中找出 <strong>和为目标值</strong> <code>target</code> 的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
+                    <p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+                    <p>你可以按任意顺序返回答案。</p>
+                    
+                    <h4>示例 1：</h4>
+                    <pre><strong>输入：</strong>nums = [2,7,11,15], target = 9
+<strong>输出：</strong>[0,1]
+<strong>解释：</strong>因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</pre>
+                    
+                    <h4>示例 2：</h4>
+                    <pre><strong>输入：</strong>nums = [3,2,4], target = 6
+<strong>输出：</strong>[1,2]</pre>
+                    
+                    <h4>示例 3：</h4>
+                    <pre><strong>输入：</strong>nums = [3,3], target = 6
+<strong>输出：</strong>[0,1]</pre>
+                    
+                    <h4>提示：</h4>
+                    <ul>
+                        <li><code>2 <= nums.length <= 10<sup>4</sup></code></li>
+                        <li><code>-10<sup>9</sup> <= nums[i] <= 10<sup>9</sup></code></li>
+                        <li><code>-10<sup>9</sup> <= target <= 10<sup>9</sup></code></li>
+                        <li><strong>只会存在一个有效答案</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-900">今日讨论</h3>
+                <button id="create-daily-discussion-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-lg text-sm flex items-center transition-colors duration-200">
+                    <i class="fas fa-plus mr-1"></i>发布讨论
+                </button>
+            </div>
+		-->
+        <!--    <div id="daily-discussions-list" class="divide-y divide-gray-200">-->
+                <!-- 讨论示例 -->
+         <!--       <div class="p-4 hover:bg-gray-50">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-user text-gray-500"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <p class="text-sm font-medium text-gray-900">用户123</p>
+                                <span class="text-xs text-gray-500">2023-05-15 09:30</span>
+                            </div>
+                            <h4 class="text-md font-semibold text-gray-800 mb-1">关于哈希表的优化</h4>
+                            <p class="text-sm text-gray-600">这道题使用哈希表可以将时间复杂度降到O(n)，但需要注意处理重复元素的情况...</p>
+                            <div class="flex items-center mt-2 text-sm text-gray-500">
+                                <button class="flex items-center mr-4 hover:text-blue-600">
+                                    <i class="far fa-comment mr-1"></i>
+                                    <span>12 回复</span>
+                                </button>
+                                <button class="flex items-center hover:text-blue-600">
+                                    <i class="far fa-thumbs-up mr-1"></i>
+                                    <span>24 点赞</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 hover:bg-gray-50">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                <i class="fas fa-user text-gray-500"></i>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-center mb-1">
+                                <p class="text-sm font-medium text-gray-900">算法小白</p>
+                                <span class="text-xs text-gray-500">2023-05-15 11:45</span>
+                            </div>
+                            <h4 class="text-md font-semibold text-gray-800 mb-1">暴力解法的问题</h4>
+                            <p class="text-sm text-gray-600">我一开始用了双重循环的暴力解法，结果超时了，有没有人能解释一下为什么...</p>
+                            <div class="flex items-center mt-2 text-sm text-gray-500">
+                                <button class="flex items-center mr-4 hover:text-blue-600">
+                                    <i class="far fa-comment mr-1"></i>
+                                    <span>8 回复</span>
+                                </button>
+                                <button class="flex items-center hover:text-blue-600">
+                                    <i class="far fa-thumbs-up mr-1"></i>
+                                    <span>15 点赞</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			-->
+            <div class="text-center py-4 text-gray-500" id="daily-discussions-empty" style="display: none;">
+                暂无讨论内容
+            </div>
+        </div>
+    </div>
+
+    <!-- 提交代码模态框 -->
+    <div id="submit-daily-modal" class="modal">
+        <div class="modal-content max-w-4xl">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">提交代码</h2>
+            <div class="mb-4">
+                <label for="daily-language-select" class="block text-sm font-medium text-gray-700 mb-1">选择语言</label>
+                <select id="daily-language-select" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="cpp">C++</option>
+                    <option value="java">Java</option>
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">代码编辑器</label>
+                <textarea id="daily-code-editor" class="w-full h-96 p-4 font-mono text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" spellcheck="false">class Solution {
+public:
+    vector&lt;int&gt; twoSum(vector&lt;int&gt;& nums, int target) {
+        // 在这里编写你的代码
+        
+    }
+};</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button id="cancel-daily-submit-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                <button id="confirm-daily-submit-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">提交</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创建讨论模态框 -->
+    <div id="create-daily-discussion-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">发布讨论</h2>
+            <form id="daily-discussion-form">
+                <div class="mb-4">
+                    <label for="daily-discussion-title" class="block text-sm font-medium text-gray-700 mb-1">标题</label>
+                    <input type="text" id="daily-discussion-title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="daily-discussion-content" class="block text-sm font-medium text-gray-700 mb-1">内容</label>
+                    <textarea id="daily-discussion-content" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="button" id="cancel-daily-discussion-btn" class="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">取消</button>
+                    <button type="submit" id="save-daily-discussion-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
