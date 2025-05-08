@@ -182,3 +182,36 @@ button:active {
     color: #64748b;
     font-weight: bold;
 }
+
+/* 添加到 SYHOI.css 文件末尾 */
+.about-sidebar {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    transform: translateX(0);
+    opacity: 1;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.about-sidebar.hidden {
+    transform: translateX(120%);
+    opacity: 0;
+}
+
+.about-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.about-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.about-sidebar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.about-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
