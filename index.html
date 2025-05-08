@@ -95,15 +95,84 @@
         </div>
     </div>
     
+    <!-- 关于我们侧边栏 -->
+    <div class="about-sidebar bg-white shadow-lg rounded-lg p-6 fixed right-4 top-24 w-64 z-50">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-gray-800">关于我们</h3>
+            <button id="close-about-btn" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <div class="flex items-start">
+                <div class="bg-blue-100 p-2 rounded-full mr-3">
+                    <i class="fas fa-info-circle text-blue-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-800">SYHOI OJ</h4>
+                    <p class="text-sm text-gray-600">一个专注于算法竞赛的在线判题系统</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-purple-100 p-2 rounded-full mr-3">
+                    <i class="fas fa-users text-purple-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-800">团队</h4>
+                    <p class="text-sm text-gray-600">由热爱算法的开发者创建</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-green-100 p-2 rounded-full mr-3">
+                    <i class="fas fa-code-branch text-green-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-800">开源</h4>
+                    <p class="text-sm text-gray-600">项目已在GitHub开源</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <div class="bg-yellow-100 p-2 rounded-full mr-3">
+                    <i class="fas fa-envelope text-yellow-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-800">联系我们</h4>
+                    <p class="text-sm text-gray-600">contact@syhoj.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-gray-200">
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-gray-500 hover:text-blue-500">
+                    <i class="fab fa-github text-lg"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-blue-400">
+                    <i class="fab fa-twitter text-lg"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-red-500">
+                    <i class="fab fa-youtube text-lg"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-purple-600">
+                    <i class="fab fa-discord text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- 主体内容 -->
     <div class="ml-[20%] p-8">
         <!-- 比赛部分 -->
         <div class="mb-12">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold text-gray-800">比赛</h2>
-                <button id="create-contest-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
-                    <i class="fas fa-plus mr-2"></i>创建比赛
-                </button>
+                <div class="flex space-x-2">
+                    <button id="about-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                        <i class="fas fa-info-circle mr-2"></i>关于我们
+                    </button>
+                    <button id="create-contest-btn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg flex items-center transition-colors duration-200">
+                        <i class="fas fa-plus mr-2"></i>创建比赛
+                    </button>
+                </div>
             </div>
             
             <div class="bg-white rounded-xl shadow-md overflow-hidden">
@@ -249,5 +318,34 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // 关于我们侧边栏交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const aboutBtn = document.getElementById('about-btn');
+            const aboutSidebar = document.querySelector('.about-sidebar');
+            const closeAboutBtn = document.getElementById('close-about-btn');
+            
+            // 默认隐藏侧边栏
+            aboutSidebar.style.display = 'none';
+            
+            // 点击关于我们按钮
+            aboutBtn.addEventListener('click', function() {
+                aboutSidebar.style.display = aboutSidebar.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // 点击关闭按钮
+            closeAboutBtn.addEventListener('click', function() {
+                aboutSidebar.style.display = 'none';
+            });
+            
+            // 点击页面其他地方关闭侧边栏
+            document.addEventListener('click', function(event) {
+                if (!aboutSidebar.contains(event.target) && event.target !== aboutBtn) {
+                    aboutSidebar.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
